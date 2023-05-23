@@ -5,12 +5,14 @@ let questionButton2 = document.querySelector("#answer2");
 let questionButton3 = document.querySelector("#answer3");
 let questionButton4 = document.querySelector("#answer4");
 let questionEl = document.querySelector("#question");
+let timerEl = document.querySelector("#timer");
 
 let timer = 90
 
-timerID = setInterval(function () {
+let timerID = setInterval(function () {
 
     timer -= 1
+    timerEl.textContent = timer
 
 
 }, 1000)
