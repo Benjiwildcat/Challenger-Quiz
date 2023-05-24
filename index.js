@@ -6,16 +6,28 @@ let questionButton3 = document.querySelector("#answer3");
 let questionButton4 = document.querySelector("#answer4");
 let questionEl = document.querySelector("#question");
 let timerEl = document.querySelector("#timer");
+let score = ("100%", "83", "66%", "50%", "33%", "16%");
 
-let timer = 90
+let timer = 101
 
 let timerID = setInterval(function () {
 
-    timer -= 1
+    timer = Math.max(0, timer - 1);
     timerEl.textContent = timer
+    if (timer === 0) {
+        clearInterval(timerID);
+    }
 
 
 }, 1000)
+
+// quizDiv.addEventListener("click", function() {
+
+//     if 
+
+// }
+
+// )
 
 
 
@@ -58,18 +70,32 @@ quizDiv.addEventListener("click", function (event) {
 
 
     if (event.target.matches("button")) {
-        console.log("clicked!")
 
-        renderQuestion();
+        if (event.target.innerText === questions[currentQuestion].correctAnswer) {
+            result.textContent = "correct!"
+        }
+        else {
+            result.textContent = "Incorrect :("
+            timer -= 25
+        }
+
         currentQuestion++
+        renderQuestion();
+
+
+
 
     }
 
 
+});
 
+// function(endQuiz) {
 
+//     if questions.length === [6]
 
-})
+//         return console.log(quiz complete!)
+// }
 
 
 
