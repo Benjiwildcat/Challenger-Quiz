@@ -7,6 +7,7 @@ let questionButton4 = document.querySelector("#answer4");
 let questionEl = document.querySelector("#question");
 let timerEl = document.querySelector("#timer");
 let score = ("100%", "83", "66%", "50%", "33%", "16%");
+let scoreScreen = document.getElementById("score")
 
 let timer = 101
 
@@ -44,20 +45,22 @@ let questions = [
 
 let currentQuestion = 0
 
-function endQuiz() {
 
-}
 
 function renderQuestion() {
+    console.log(currentQuestion, questions.length)
 
-    questionEl.textContent = questions[currentQuestion].question
+    if (currentQuestion < questions.length) {
+        questionEl.textContent = questions[currentQuestion].question
 
-    questionButton1.textContent = questions[currentQuestion].answers[0]
-    questionButton2.textContent = questions[currentQuestion].answers[1]
-    questionButton3.textContent = questions[currentQuestion].answers[2]
-    questionButton4.textContent = questions[currentQuestion].answers[3]
-
-    if (currentQuestion === questions.length - 1) {
+        questionButton1.textContent = questions[currentQuestion].answers[0]
+        questionButton2.textContent = questions[currentQuestion].answers[1]
+        questionButton3.textContent = questions[currentQuestion].answers[2]
+        questionButton4.textContent = questions[currentQuestion].answers[3]
+    } else {
+        score = timer
+        console.log(score)
+        clearInterval(timerID)
         endQuiz()
     }
 }
@@ -68,34 +71,37 @@ renderQuestion();
 quizDiv.addEventListener("click", function (event) {
 
 
+    if (currentQuestion < questions.length) {
+        if (event.target.matches("button")) {
 
-    if (event.target.matches("button")) {
+            if (event.target.innerText === questions[currentQuestion].correctAnswer) {
+                result.textContent = "correct!"
+            }
+            else {
+                result.textContent = "Incorrect :("
+                timer -= 25
+            }
 
-        if (event.target.innerText === questions[currentQuestion].correctAnswer) {
-            result.textContent = "correct!"
+            currentQuestion++
+            renderQuestion();
+
+
+
         }
-        else {
-            result.textContent = "Incorrect :("
-            timer -= 25
-        }
-
-        currentQuestion++
-        renderQuestion();
-
-
-
-
-    }
+    } else (endQuiz())
 
 
 });
 
-// function(endQuiz) {
+function endQuiz() {
 
-//     if questions.length === [6]
-
-//         return console.log(quiz complete!)
-// }
+    // if (questions.length === [6]) {
+    scoreScreen.classList.add("d-block")
+    scoreScreen.classList.remove("d-none")
+    quizDiv.classList.add("d-none")
+    // return console.log("quiz complete!")
+    // }
+}
 
 
 
